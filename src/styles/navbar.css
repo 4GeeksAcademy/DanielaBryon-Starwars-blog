@@ -1,0 +1,41 @@
+.navbar-box{
+    display: inline-block;
+}
+.navbar-nav i {
+    margin-right: 10px;
+    font-size: 20px; /* Cambia 24px al tamaño que desees */
+}
+.youtube-link{
+    margin-left: 22px;
+}
+
+.redondo{
+    border-radius: 80%;
+}
+
+.nav-justified{
+    width: 100%;
+}
+
+.linkTexts{
+    font-weight:bolder  ;
+    color: rgb(163, 156, 156);
+}
+
+.dropdown-menu{
+    background-color: rgba(0, 0, 0, 0.314);
+}
+
+.deleteIcon{
+    cursor: pointer;
+}
+
+.youtube-link.separator-before::before{
+    content: '';
+    height: 36px;
+    margin: -2px 5px;
+    position: absolute;
+    width: 1px;
+    background: #48494A;
+    display: block;
+}
