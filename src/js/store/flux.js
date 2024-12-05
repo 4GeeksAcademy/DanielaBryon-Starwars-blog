@@ -20,7 +20,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			planets: [],
 			planetDetails: null,
 			vehicles: [],
-			vehiclesDetails: null,
+			vehicleDetail: null,
 		},
 		actions: {
 			
@@ -45,7 +45,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ favorites: updatedFavorites });
 			},
 
-			getCharactersDetail: (id) => {
+			getCharactersDetails: (id) => {
 				fetch(`https://www.swapi.tech/api/people/${id}`)
 					.then(res => res.json())
 					.then(data => setStore({ charactersDetails: data.result.properties }))
@@ -55,23 +55,31 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getVehicleDetail: (id) => {
 				fetch(`https://www.swapi.tech/api/vehicles/${id}`)
 					.then(res => res.json())
-					.then(data => setStore({ vehiclesDetails: data.result.properties }))
+					.then(data => setStore({ vehicleDetail: data.result.properties }))
 					.catch(err => console.error(err));
 			},
 			
 			getPlanets: () => {
-				fetch("https://www.swapi.tech/api/planets?page=1&limit=10")
+				fetch("https://www.swapi.tech/api/planets?page=1&limit=150")
 					.then(res => res.json())
 					.then(data => setStore({ planets: data.results }))
 					.catch(err => console.error(err));
 			},
 
 			getAllPlanets: () => {
-				fetch("https://www.swapi.tech/api/planets?page=2&limit=82")
+				fetch("https://www.swapi.tech/api/planets?page=2&limit=150")
                     .then(res => res.json())
                     .then(data => setStore({ planets: data.results }))
                     .catch(err => console.error(err));
             },
+
+			getPlanetDetail: (id) => { 
+				fetch(`https://www.swapi.tech/api/planets/${id}`)
+					.then(res => res.json())
+					.then(data => setStore({ planetDetail: data.result.properties }))
+					.catch(err => console.error(err))
+
+			},
 
 			getCharacters: () => {
 				fetch("https://www.swapi.tech/api/people/")
@@ -88,7 +96,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			getAllCharacters: () => {
-				fetch("https://www.swapi.tech/api/people?page=2&limit=82")
+				fetch("https://www.swapi.tech/api/people?page=2&limit=50")
                     .then(res => res.json())
                     .then(data => setStore({ characters: data.results }))
                     .catch(err=> console.error(err));

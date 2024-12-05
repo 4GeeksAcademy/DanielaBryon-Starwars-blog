@@ -1,41 +1,178 @@
-.navbar-box{
-    display: inline-block;
-}
-.navbar-nav i {
-    margin-right: 10px;
-    font-size: 20px; /* Cambia 24px al tamaño que desees */
-}
-.youtube-link{
-    margin-left: 22px;
+.navbar {
+    display: flex;
+    background-color: black;
+    /* padding: 10px 20px; */
+    align-items: stretch;
+    flex-direction: column;
+    padding-bottom: 0px;
 }
 
-.redondo{
-    border-radius: 80%;
+.navbar-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.nav-justified{
+.navbar-top {
+    margin-top: 6px;
+    display: flex;
+    justify-content: space-between;
     width: 100%;
+    /* padding: 10px 20px; */
+    align-items: flex-start;
+    /* flex-direction: row; */
 }
 
-.linkTexts{
-    font-weight:bolder  ;
-    color: rgb(163, 156, 156);
+.navbar-actions {
+    margin-right: 18px;
+    display: flex;
+    align-items: center;
 }
 
-.dropdown-menu{
-    background-color: rgba(0, 0, 0, 0.314);
+.navbar-logo {
+    text-align: center;
+    margin: 20px 0;
+    margin-right: 70px;
+
 }
 
-.deleteIcon{
+.navbar-links{
+    font-size: 24px;
+    gap: 40px;
+    list-style-type: none;
+    display: flex
+;
+    /* flex-direction: row; */
+}
+
+
+.favorites-nav{
+    font-style: normal;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+.favorites-nav.btn:hover {
+    color: white;
+}
+
+ul.dropdown-menu{
+    background-color: #1D1E1F;
+}
+
+li.dropdown-item {
+    display: flex;
+    width: 100%;
+    padding: .25rem 1rem;
+    clear: both;
+    font-weight: 400;
+    color: white;
+    text-align: inherit;
+    text-decoration: none;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+.search-btn {
+    background: none;
+    border: none;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+  .search-btn span {
+    margin-left: 5px;
+  }
+  
+.search-input {
+    border-radius: 4px;
+    /* position: absolute; */
+    right: 0;
+    top: 100%;
+    width: 140px;
+    padding: 5px;
+    border: 2px solid white;
+    background-color: black;
+    color: white;
 }
 
-.youtube-link.separator-before::before{
-    content: '';
-    height: 36px;
-    margin: -2px 5px;
-    position: absolute;
-    width: 1px;
-    background: #48494A;
-    display: block;
+.nav-tabs {
+    font-weight: bold;
+    text-transform: uppercase;
+    color: white;
+    font-size: 20px;
+    padding: 10px 15px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    /* display: flex; */
+    width: 33%;
 }
+
+.nav-item {
+    width: 33.33%; /* Cada ítem ocupa un tercio del ancho */
+    text-align: center;
+}
+
+.nav-link {
+    color: #B5B7B7;
+    font-size: 16px;
+    letter-spacing: 1px;
+    transition: color 0.3s, border-bottom 0.3s;
+    display: inline-block;
+    width: 100%; /* El enlace ocupa todo el ancho del ítem */
+    position: relative;
+    transition: all 0.25s;
+}
+
+a.nav-link.linkTexts.active{
+    width: 150px;
+}
+
+.nav-link:focus, .nav-link:hover {
+    color:white;
+}
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #FADE4B;
+    transition: width 0.25s;
+}
+
+.nav-link.active::after {
+    width: 100%;
+    box-shadow: 0px 0px 4px 1px #FADE4B;
+}
+
+.nav.nav-underline{
+    border-bottom: 1px solid white;
+    padding-bottom: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+/* Elimina esta regla si ya no es necesaria */
+/* a.nav-link.linkTexts {
+    width: 33%;
+} */

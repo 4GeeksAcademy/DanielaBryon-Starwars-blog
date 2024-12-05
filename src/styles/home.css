@@ -1,0 +1,165 @@
+.home-sw {
+    background-color: black;
+}
+
+.home-sw-title {
+    padding-top: 46px;
+    text-align: center;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bolder;
+    font-size: 46px;
+    font-family: monospace;
+}
+
+
+.carousel-inner {
+    height: 580px;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.caro-img {
+    margin-left: 70px;
+    object-fit: fill;
+    height: 80vh;
+    width: 90%;
+    padding: 40px 0px;
+}
+
+
+.section-title {
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    border-bottom: 3px solid #48494a;
+    padding-bottom: 10px;
+}
+
+h2.section-title {
+
+    display: flex;
+    font-family: monospace;
+    font-style: normal;
+    font-weight: bolder;
+    font-size: 24px;
+    line-height: 30px;
+    text-transform: none;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+
+.databank-container {
+    background-color: black;
+    color: #fff;
+    font-family: 'Din', Arial, sans-serif;
+    padding: 30px;
+}
+
+.card-list-container {
+    margin-top: 20px;
+}
+
+.card-list {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(14, minmax(200px, 1fr)); /* 8 tarjetas visibles */
+    gap: 20px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    max-width: 100%; /* Para que el contenedor ocupe todo el ancho disponible */
+    padding-bottom: 10px; /* Para evitar que el scroll toque directamente el contenido */
+}
+
+.card-list::-webkit-scrollbar {
+    height: 7px;
+}
+
+.card-list::-webkit-scrollbar-track {
+    background: black;
+}
+
+.card-list::-webkit-scrollbar-thumb {
+    background-color: rgb(240, 229, 23);
+    border-radius: 5px;
+    width: 50px;
+}
+
+.card-actions{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+}
+
+.like-button{
+    background-color: #202020;
+    border: none;
+    color: rgb(233, 233, 6);
+}
+
+
+.card-item {
+    background-color: #202020;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.card-item:hover {
+    transform: scale(1.05);
+}
+
+.card-img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.btn-see-more {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-weight: 700;
+    text-transform: none;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-see-more:hover {
+    background-color: black;
+    color: yellow;
+}
+
+.see-more-link {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+}
+
+
+
+html::-webkit-scrollbar {
+    display: none;
+    /* Oculta el scrollbar */
+}

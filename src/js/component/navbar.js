@@ -1,135 +1,168 @@
-import React, { useContext } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom"
+import React, { useContext, useState, useRef, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom"
 import { Context } from "../store/appContext";
 import Logo from "../../img/Logo.jpg";
-import { FaYoutube } from "react-icons/fa";
-import { FaTiktok } from "react-icons/fa";
+import { FaYoutube, FaTiktok, FaSearch, FaFacebook } from "react-icons/fa";
 import { SiInstagram } from "react-icons/si";
 import { FaXTwitter } from "react-icons/fa6";
-import { FaFacebook } from "react-icons/fa6";
-
+import { RiDeleteBin6Fill } from "react-icons/ri";
 
 import "../../styles/navbar.css";
 
 export const Navbar = () => {
     const { store, actions } = useContext(Context);
-    const { characterId } = useParams()
-    const navigate = useNavigate()
+    const [isSearchActive, setIsSearchActive] = useState(false);
+    const [searchValue, setSearchValue] = useState('');
+    const searchContainerRef = useRef(null);
+    const [activeLink, setActiveLink] = useState(null);
+    const navigate = useNavigate();
 
-    const favsCount = store.favorites.length
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (searchContainerRef.current && !searchContainerRef.current.contains(event.target)) {
+                setIsSearchActive(false);
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
+    const favsCount = store.favorites.length;
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        if (searchValue.trim()) {
+            const results = store.data.filter(item => 
+                item.name.toLowerCase().includes(searchValue.toLowerCase())
+            );
+            setFilteredResults(results);
+            setIsSearchActive(false);
+        }
+    };
+
 
 
 
     return (
 
-        <nav className="navbar bg-body-tertiary bg-black">
-
-            <div className="container-fluid navbar-box">
-
-                <ul className="navbar-nav d-flex flex-row">
-
-
-
-                    <li className="nav-item me-lg-0">
-                        <a className="nav-link" href="#">
-                            <i className="tiktok-link text-white"><FaTiktok /></i>
-                        </a>
-                    </li>
-                    <li className="nav-item me-lg-0">
-                        <a className="nav-link" href="#">
-                            <i className="insta-link text-white"><SiInstagram />
-                            </i>
-                        </a>
-                    </li>
-                    <li className="nav-item me-lg-0">
-                        <a className="nav-link" href="#">
-                            <i className="x-link text-white"><FaXTwitter /></i>
-                        </a>
-                    </li>
-                    <li className="nav-item me-lg-0">
-                        <a className="nav-link" href="#">
-                            <i className="facebook-link text-white"><FaFacebook /></i>
-                        </a>
-                    </li>
-                    <li className="nav-item me-lg-0">
-                        <a className="nav-link" href="#">
-                            <i className="youtube-link text-white separator-before"><FaYoutube /></i>
-                        </a>
-                    </li>
-                </ul>
-                <ul>
-                    <li className="nav-item me-3 me-lg-0 dropdown">
-                        <i className=" text-white btn  dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Favorites: {favsCount}
-                        </i>
-                        <div className="dropdown-menu text-white" aria-labelledby="dropdownMenu2">
-                            <strong>Favoritos:</strong>
-                            <ul>
-                                {store.favorites.map((favorite, index) => (
-                                    <li key={index}>{favorite}<RiDeleteBin6Fill className="deleteIcon" onClick={() => actions.deleteFavorite(index)} /></li>
-                                ))}
+        <nav className="navbar bg-body-tertiary">
+            <div className="navbar-box">
+                <div className="navbar-top">
+                    <ul className="navbar-links">
+                        <li className="nav-item me-lg-0">
+                            <a className="nav-links" href="#">
+                                <i className="tiktok-link text-white"><FaTiktok /></i>
+                            </a>
+                        </li>
+                        <li className="nav-item me-lg-0">
+                            <a className="nav-links" href="#">
+                                <i className="insta-link text-white"><SiInstagram /></i>
+                            </a>
+                        </li>
+                        <li className="nav-item me-lg-0">
+                            <a className="nav-links" href="#">
+                                <i className="x-link text-white"><FaXTwitter /></i>
+                            </a>
+                        </li>
+                        <li className="nav-item me-lg-0">
+                            <a className="nav-links" href="#">
+                                <i className="facebook-link text-white"><FaFacebook /></i>
+                            </a>
+                        </li>
+                        <li className="nav-item me-lg-0">
+                            <a className="nav-links" href="#">
+                                <i className="youtube-link text-white separator-before"><FaYoutube /></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <div className="navbar-logo">
+                        <Link to="/" onClick={() => setActiveLink(null)}>
+                            <img width="315" height="125" className="logo-nav" src={Logo} alt="Star Wars Logo" />
+                        </Link>
+                    </div>
+                    <div className="navbar-actions">
+                        <div className="search-container" ref={searchContainerRef}>
+                            <form onSubmit={handleSearch}>
+                                <button
+                                    className="search-btn"
+                                    onClick={() => setIsSearchActive(true)}
+                                    type="button"
+                                >
+                                    <FaSearch />
+                                    {!isSearchActive && <span>Search</span>}
+                                </button>
+                                {isSearchActive && (
+                                    <input
+                                        className="search-input"
+                                        type="text"
+                                        placeholder="Search"
+                                        value={searchValue}
+                                        onChange={(e) => setSearchValue(e.target.value)}
+                                        autoFocus
+                                    />
+                                )}
+                            </form>
+                        </div>
+                        <div className="nav-item me-lg-0 dropdown">
+                            <button
+                                className="favorites-nav btn dropdown-toggle"
+                                type="button"
+                                id="dropdownMenu2"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                            >
+                                Favorites: {favsCount}
+                            </button>
+                            <ul className="dropdown-menu text-white" aria-labelledby="dropdownMenu2">
+                                {store.favorites.length === 0 ? (
+                                    <li className="dropdown-item text-white">No favs yet</li>
+                                ) : (
+                                    store.favorites.map((favorite, index) => (
+                                        <li key={index} className="dropdown-item">
+                                            {favorite}
+                                            <RiDeleteBin6Fill
+                                                className="deleteIcon"
+                                                onClick={() => actions.deleteFavorite(index)}
+                                            />
+                                        </li>
+                                    ))
+                                )}
                             </ul>
                         </div>
-                    </li>
-                </ul>
-
-                <div className="dropdown">
-
+                    </div>
                 </div>
-                <div>
-                    <Link to="/">
-                        <img width="325" height="125" className="m-1" src={Logo} />
-                    </Link>
-                </div>
-                <form className="d-flex" role="search">
-                    <input className="form-control me-2" list="suggestions" type="search" placeholder="Search" aria-label="Search"></input>
-                    <datalist id="suggestions">
-                        <option value="Luke SkyWalker"></option>
-                        <option value="darth Vader"></option>
-                        <option value="Tatooine"></option>
-                        <option value="Sand Crawler"></option>
-                        <option value="Obi Wan Kenobi"></option>
-                    </datalist>
-                    <button className="btn btn-outline-success" type="submit">Search</button>
-                </form>
+
             </div>
-            <ul className="nav nav-tabs nav-justified  pillsSize " id="ex1" role="tablist">
+            <ul className="nav nav-underline justify-content-center nav-justified pillsSize" id="ex1" role="tablist">
                 <li className="nav-item" role="presentation">
-                    <Link to="/characters"
-                        data-mdb-tab-init
-                        className="nav-link linkTexts"
-                        id="ex3-tab-1"
-                        href="#ex3-tabs-1"
+                    <Link
+                        to="/characters"
+                        className={`nav-link linkTexts ${activeLink === 'characters' ? 'active' : ''}`}
+                        onClick={() => setActiveLink('characters')}
                         role="tab"
-                        aria-controls="ex3-tabs-1"
-                        aria-selected="true"
                     >
                         CHARACTERS
-
                     </Link>
                 </li>
                 <li className="nav-item" role="presentation">
-                    <Link to="/planets"
-                        data-mdb-tab-init
-                        className="nav-link linkTexts"
-                        id="ex3-tab-2"
-                        href="#ex3-tabs-2"
+                    <Link
+                        to="/planets"
+                        className={`nav-link linkTexts ${activeLink === 'planets' ? 'active' : ''}`}
+                        onClick={() => setActiveLink('planets')}
                         role="tab"
-                        aria-controls="ex3-tabs-2"
-                        aria-selected="false"
                     >
                         PLANETS
                     </Link>
                 </li>
-                <li className="nav-item " role="presentation">
-                    <Link to="/vehicles"
-                        data-mdb-tab-init
-                        className="nav-link linkTexts"
-                        id="ex3-tab-2"
-                        href="#ex3-tabs-2"
+                <li className="nav-item" role="presentation">
+                    <Link
+                        to="/vehicles"
+                        className={`nav-link linkTexts ${activeLink === 'vehicles' ? 'active' : ''}`}
+                        onClick={() => setActiveLink('vehicles')}
                         role="tab"
-                        aria-controls="ex3-tabs-2"
-                        aria-selected="false"
                     >
                         VEHICLES
                     </Link>
